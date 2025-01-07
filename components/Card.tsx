@@ -22,7 +22,7 @@ export function Card({ item }: { item: CardItem }) {
 
   if (item.mediaKind == "movie") {
     const player: any = useVideoPlayer(
-      "https://cdn.pixabay.com/video/2024/12/03/244754_large.mp4",
+      item.uri,
       (player) => {
         player.loop = true;
         player.play();

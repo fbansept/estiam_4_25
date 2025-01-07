@@ -23,7 +23,7 @@ export default function HomeScreen() {
   const data: CardItem[] = [
     {
       title: "Article 1",
-      uri: "https://placehold.jp/200x500.png?text=VIDEO",
+      uri: "https://cdn.pixabay.com/video/2024/12/03/244754_large.mp4",
       author: {
         pseudo: "Tom",
         avatar: "https://placehold.jp/3d4070/ffffff/50x50.png"
