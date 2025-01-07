@@ -17,22 +17,35 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSafeAreaStyle } from "@/hooks/useSafeAreaStyle";
 import { SafeAreaContainer } from "@/components/SafeAreaContainer";
 import { useState } from "react";
-import { Card } from "@/components/Card";
+import { Card, CardItem } from "@/components/Card";
 
 export default function HomeScreen() {
-  const data = [
+  const data: CardItem[] = [
     {
       title: "Article 1",
-      uri: "https://placehold.jp/200x500.png?text=article_1"
+      uri: "https://placehold.jp/200x500.png?text=article_1",
+      author: {
+        pseudo: "Tom",
+        avatar: "https://placehold.jp/3d4070/ffffff/50x50.png"
+      },
+      like: 1123456
     },
     {
       title: "Article 2",
-      uri: "https://placehold.jp/200x500.png?text=article_2"
+      uri: "https://placehold.jp/200x500.png?text=article_2",
+      author: {
+        pseudo: "Titi",
+        avatar: "https://placehold.jp/ab6742/ffffff/50x50.png"
+      },
+      like: 5678
     }
   ];
 
   return (
-    <FlatList data={data} renderItem={({ item }) => <Card></Card>}></FlatList>
+    <FlatList
+      data={data}
+      renderItem={({ item }) => <Card item={item}></Card>}
+    ></FlatList>
 
     // <ParallaxScrollView
     //   headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
