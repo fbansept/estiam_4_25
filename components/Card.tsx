@@ -13,7 +13,7 @@ export type CardItem = {
     pseudo: string;
     avatar: string;
   };
-  like: number;
+  likeCount: number;
   mediaKind: "movie" | "picture";
 };
 
@@ -21,13 +21,10 @@ export function Card({ item }: { item: CardItem }) {
   let content = null;
 
   if (item.mediaKind == "movie") {
-    const player: any = useVideoPlayer(
-      item.uri,
-      (player) => {
-        player.loop = true;
-        player.play();
-      }
-    );
+    const player: any = useVideoPlayer(item.uri, (player) => {
+      player.loop = true;
+      player.play();
+    });
 
     const { isPlaying } = useEvent(player, "playingChange", {
       isPlaying: player.playing
@@ -83,7 +80,7 @@ export function Card({ item }: { item: CardItem }) {
             </View>
             <FontAwesome6 name="bookmark" size={30} color="black" />
           </View>
-          <Text>{item.like} J'aime</Text>
+          <Text>{item.likeCount} J'aime</Text>
         </View>
         <View
           style={[

@@ -16,32 +16,17 @@ import { ThemedView } from "@/components/ThemedView";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSafeAreaStyle } from "@/hooks/useSafeAreaStyle";
 import { SafeAreaContainer } from "@/components/SafeAreaContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardItem } from "@/components/Card";
 
 export default function HomeScreen() {
-  const data: CardItem[] = [
-    {
-      title: "Article 1",
-      uri: "https://cdn.pixabay.com/video/2024/12/03/244754_large.mp4",
-      author: {
-        pseudo: "Tom",
-        avatar: "https://placehold.jp/3d4070/ffffff/50x50.png"
-      },
-      like: 1123456,
-      mediaKind: "movie"
-    },
-    {
-      title: "Article 2",
-      uri: "https://placehold.jp/200x500.png?text=PHOTO",
-      author: {
-        pseudo: "Titi",
-        avatar: "https://placehold.jp/ab6742/ffffff/50x50.png"
-      },
-      like: 5678,
-      mediaKind: "picture"
-    }
-  ];
+  const [data, setData] = useState<CardItem[]>([]);
+
+  useEffect(() => {
+    fetch("http://192.168.43.59:3000/posts")
+      .then((resultat) => resultat.json())
+      .then((posts) => setData(posts));
+  }, []);
 
   return (
     <SafeAreaContainer>
