@@ -17,8 +17,6 @@ export default function Login() {
     getValues
   } = useForm();
 
-  const navigation: NavigationProp<ParamListBase> = useNavigation();
-
   useEffect(() => {
     setJwt(SecureStore.getItem("jwt"));
   }, []);
