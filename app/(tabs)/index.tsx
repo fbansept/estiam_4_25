@@ -1,21 +1,29 @@
-import {
-  StyleSheet,
-  View,
-  FlatList
-} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { SafeAreaContainer } from "@/components/SafeAreaContainer";
 import { useEffect, useState } from "react";
 import { Card, CardItem } from "@/components/Card";
+import * as SecureStore from "expo-secure-store";
+import { router } from "expo-router";
 
 export default function HomeScreen() {
   const [data, setData] = useState<CardItem[]>([]);
 
   useEffect(() => {
-    fetch("http://192.168.216.193:3000/posts")
-      .then((resultat) => resultat.json())
-      .then((posts) => setData(posts));
+    SecureStore.getItemAsync("jwt").then((jwt) => {
+      fetch("http://192.168.216.193:3000/posts", {
+        headers: { Authorization: "Bearer " + jwt }
+      })
+        .then((resultat) => {
+          if (resultat.status == 403) {
+            router.replace("/login");
+          }
+
+          return resultat.json();
+        })
+        .then((posts) => setData(posts));
+    });
   }, []);
 
   return (

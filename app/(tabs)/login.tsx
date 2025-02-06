@@ -1,5 +1,5 @@
 import { SafeAreaContainer } from "@/components/SafeAreaContainer";
-import { Button, Input } from "@rneui/themed";
+import { Button, ButtonGroup, Input } from "@rneui/themed";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Alert, StyleSheet, Text, View } from "react-native";
@@ -20,6 +20,11 @@ export default function Login() {
   useEffect(() => {
     setJwt(SecureStore.getItem("jwt"));
   }, []);
+
+  function onDeconnexion() {
+    SecureStore.deleteItemAsync("jwt");
+    setJwt(null);
+  }
 
   if (!jwt) {
     function fetchWithTimeout(url: string, options: Object, timeout = 3000) {
@@ -124,6 +129,8 @@ export default function Login() {
     return (
       <SafeAreaContainer>
         <Text>Donnee de l'utilisateur</Text>
+
+        <Button onPress={onDeconnexion}>Deconnexion</Button>
       </SafeAreaContainer>
     );
   }
